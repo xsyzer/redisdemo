@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.redis.mapper.UserDao">
+
+<cache type="com.redis.cache.RedisCache"/>
+    <update id="update">
+        update user set age = #{age}
+        where id = #{id}
+    </update>
+    <select id="findAll" resultType="com.redis.pojo.User">
+        select id,name,age,birth from user
+    </select>
+</mapper>

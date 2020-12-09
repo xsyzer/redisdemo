@@ -1,0 +1,23 @@
+spring:
+  datasource:
+    username: root
+    password: 123
+    url: jdbc:mysql://localhost:3306/user?useSSL=false&characterEncoding=UTF-8&serverTimezone=UTC
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    type: com.alibaba.druid.pool.DruidDataSource
+  #redis
+  redis:
+    host: 123.57.51.99
+    port: 6380
+    database: 0
+  #端口
+server:
+  port: 8081
+  #mybatis
+mybatis:
+  mapper-locations: classpath:com/redis/mapper/*.xml
+  type-aliases-package: classpath:com.redis.pojo
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+
