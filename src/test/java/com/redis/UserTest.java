@@ -5,6 +5,7 @@ import com.redis.service.UserService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.util.DigestUtils;
 
 /**
  * @author xsyz
@@ -20,5 +21,6 @@ public class UserTest {
         userService.findAll().forEach(System.out::println);
         System.out.println("===============");
         userService.findAll().forEach(System.out::println);
+
     }
 }

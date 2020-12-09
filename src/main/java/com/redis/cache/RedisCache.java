@@ -4,6 +4,7 @@ import com.redis.util.ApplicationContextUtils;
 import org.apache.ibatis.cache.Cache;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
+import org.springframework.util.DigestUtils;
 
 /**
  * @author xsyz
@@ -36,7 +37,7 @@ public class RedisCache implements Cache {
     @Override
     public void putObject(Object key, Object value) {
         RedisTemplate redisTemplate = getredisTemplate();
-        redisTemplate.opsForHash().put(id.toString(), key.toString(), value);
+        redisTemplate.opsForHash().put(id.toString(), getKeyMd5(key.toString()), value);
     }
 
     /**
@@ -45,7 +46,7 @@ public class RedisCache implements Cache {
     @Override
     public Object getObject(Object key) {
         RedisTemplate redisTemplate = getredisTemplate();
-        return redisTemplate.opsForHash().get(id.toString(), key.toString());
+        return redisTemplate.opsForHash().get(id.toString(), getKeyMd5(key.toString()));
     }
 
     /**
@@ -86,5 +87,11 @@ public class RedisCache implements Cache {
         redisTemplate.setHashKeySerializer(new StringRedisSerializer());
         //使用hash类型作为缓存模型
         return redisTemplate;
+    }
+    /**
+     * 对key进行md5加密
+     */
+    private String getKeyMd5(String key) {
+        return DigestUtils.md5DigestAsHex(key.getBytes());
     }
 }
